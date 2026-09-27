@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>This That These Those - Geva</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+.box {
+  max-width: 650px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 28px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.18);
+}
+
+h1 {
+  color: #1565c0;
+  font-size: 38px;
+  margin: 10px 0;
+}
+
+.subtitle {
+  color: #6a1b9a;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.from {
+  font-size: 20px;
+  margin: 12px;
+  color: #444;
+}
+
+.info {
+  background: #fff3cd;
+  padding: 15px;
+  border-radius: 18px;
+  font-size: 19px;
+  margin: 20px 0;
+}
+
+.progress {
+  font-size: 20px;
+  font-weight: bold;
+  color: #555;
+}
+
+.question {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 25px 5px;
+  line-height: 1.5;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.options button {
+  font-size: 24px;
+  padding: 18px;
+  border: none;
+  border-radius: 18px;
+  background: #90caf9;
+  cursor: pointer;
+}
+
+.options button:active {
+  transform: scale(0.96);
+}
+
+.feedback {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 20px;
+  min-height: 30px;
+}
+
+.result {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.restart {
+  background: #66bb6a;
+  color: white;
+  border: none;
+  padding: 16px 28px;
+  border-radius: 16px;
+  font-size: 22px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🇬🇧 THIS • THAT • THESE • THOSE</h1>
+
+<div class="subtitle">
+English Game
+</div>
+
+<div class="from">
+💌 From Miss Dela to Geva de Fretes
+</div>
+
+<div class="info">
+Choose the correct word.<br>
+Think carefully! 🌟<br>
+There are 30 questions.
+</div>
+
+<div id="game">
+
+<div class="progress" id="progress"></div>
+
+<div class="question" id="question"></div>
+
+<div class="options">
+<button onclick="answer(0)" id="a0"></button>
+<button onclick="answer(1)" id="a1"></button>
+<button onclick="answer(2)" id="a2"></button>
+<button onclick="answer(3)" id="a3"></button>
+</div>
+
+<div class="feedback" id="feedback"></div>
+
+</div>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+var questions = [
+
+/* 1 */
+["Look at ___ beautiful bird here on my hand.",
+["this","that","these","those"],0],
+
+/* 2 */
+"___ shoes over there belong to my brother.",
+["This","That","These","Those"],3],
+
+/* 3 */
+["I don't like ___ picture on the wall over there.",
+["this","that","these","those"],1],
+
+/* 4 */
+["___ books beside me are very interesting.",
+["This","That","These","Those"],2],
+
+/* 5 */
+["Can you see ___ mountain in the distance?",
+["this","that","these","those"],1],
+
+/* 6 */
+["___ is my favorite pencil. It is right here.",
+["This","That","These","Those"],0],
+
+/* 7 */
+["Who are ___ children playing in the park over there?",
+["this","that","these","those"],3],
+
+/* 8 */
+["Please give me ___ two notebooks next to you.",
+["this","that","these","those"],2],
+
+/* 9 */
+["What is ___ strange sound coming from the room over there?",
+["this","that","these","those"],1],
+
+/* 10 */
+["___ cookies here are still warm.",
+["This","That","These","Those"],2],
+
+/* 11 */
+["I want to buy ___ bag in my hand.",
+["this","that","these","those"],0],
+
+/* 12 */
+["Are ___ your glasses on the table over there?",
+["this","that","these","those"],3],
+
+/* 13 */
+["___ isn't my house. My house is across the street.",
+["This","That","These","Those"],0],
+
+/* 14 */
+["___ aren't my books. They belong to Anna.",
+["This","That","These","Those"],3],
+
+/* 15 */
+["Why are ___ flowers next to me so beautiful?",
+["this","that","these","those"],2],
+
+/* 16 */
+["I can't reach ___ box on the top shelf over there.",
+["this","that","these","those"],1],
+
+/* 17 */
+["___ is the answer I was looking for.",
+["This","That","These","Those"],0],
+
+/* 18 */
+["Look at ___ stars in the sky!",
+["This","That","These","Those"],3],
+
+/* 19 */
+["Could you move ___ chairs beside me?",
+["this","that","these","those"],2],
+
+/* 20 */
+["Who gave you ___ umbrella over there?",
+["this","that","these","those"],1],
+
+/* 21 */
+["I have never seen ___ kind of insect before.",
+["this","that","these","those"],0],
+
+/* 22 */
+["___ are the students who won the competition.",
+["This","That","These","Those"],3],
+
+/* 23 */
+["Please don't touch ___ machine right here.",
+["this","that","these","those"],0],
+
+/* 24 */
+["Do you remember ___ old castle we visited last year?",
+["this","that","these","those"],1],
+
+/* 25 */
+["___ questions on this page are more difficult.",
+["This","That","These","Those"],2],
+
+/* 26 */
+["I think ___ is the key to the problem.",
+["this","that","these","those"],0],
+
+/* 27 */
+["Why did you choose ___ houses at the end of the street?",
+["this","that","these","those"],3],
+
+/* 28 */
+["___ information in this book is very useful.",
+["This","That","These","Those"],0],
+
+/* 29 */
+["I don't understand ___ words you wrote on the board over there.",
+["this","that","these","those"],3],
+
+/* 30 */
+["If you compare the two pictures, ___ one on the left is clearer.",
+["this","that","these","those"],1]
+
+];
+
+var number = 0;
+var score = 0;
+
+function showQuestion() {
+
+  document.getElementById("progress").innerHTML =
+    "Question " + (number + 1) + " of 30";
+
+  document.getElementById("question").innerHTML =
+    questions[number][0];
+
+  document.getElementById("a0").innerHTML =
+    questions[number][1][0];
+
+  document.getElementById("a1").innerHTML =
+    questions[number][1][1];
+
+  document.getElementById("a2").innerHTML =
+    questions[number][1][2];
+
+  document.getElementById("a3").innerHTML =
+    questions[number][1][3];
+
+  document.getElementById("feedback").innerHTML =
+    "Choose your answer 👇";
+}
+
+function answer(choice) {
+
+  if (choice == questions[number][2]) {
+
+    score = score + 100 / 30;
+
+    document.getElementById("feedback").innerHTML =
+      "🎉 Correct! Excellent!";
+
+  } else {
+
+    document.getElementById("feedback").innerHTML =
+      "😊 Not quite. Keep going!";
+  }
+
+  setTimeout(function() {
+
+    number++;
+
+    if (number < questions.length) {
+
+      showQuestion();
+
+    } else {
+
+      var finalScore = Math.round(score);
+
+      document.getElementById("game").style.display = "none";
+
+      document.getElementById("result").innerHTML =
+        "<h2>🎊 Game Completed!</h2>" +
+        "<p>Your Score</p>" +
+        "<p style='font-size:48px; color:#1565c0;'>" +
+        finalScore + " / 100</p>" +
+        "<p>Great job, Geva! 🌟</p>" +
+        "<p>💌 From Miss Dela</p>" +
+        "<button class='restart' onclick='location.reload()'>🔄 Play Again</button>";
+    }
+
+  }, 800);
+}
+
+showQuestion();
+
+</script>
+
+</body>
+</html>
